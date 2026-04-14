@@ -1,5 +1,6 @@
 import { Suspense } from "react";
-import MatchList from "@/components/MatchList";
+import Link from "next/link";
+import MatchListWithRegion from "@/components/MatchListWithRegion";
 import PredictForm from "@/components/PredictForm";
 
 export default function Home() {
@@ -13,9 +14,15 @@ export default function Home() {
             <h1 className="text-lg font-bold leading-none">Valorant AI Predictor</h1>
             <p className="text-xs text-gray-400">VCT プロ試合 AI 勝敗予想</p>
           </div>
-          <span className="ml-auto text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-1 rounded-full">
-            BETA
-          </span>
+          <nav className="ml-auto flex items-center gap-4 text-sm">
+            <Link href="/" className="text-white font-semibold border-b border-red-500">ホーム</Link>
+            <Link href="/schedule" className="text-gray-400 hover:text-white transition-colors">
+              スケジュール
+            </Link>
+            <span className="text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-1 rounded-full">
+              BETA
+            </span>
+          </nav>
         </div>
       </header>
 
@@ -28,13 +35,13 @@ export default function Home() {
           <PredictForm />
         </section>
 
-        {/* Recent Matches */}
+        {/* Recent Matches with Region Filter */}
         <section>
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
             直近の試合結果
           </h2>
           <Suspense fallback={<div className="h-60 bg-gray-900 rounded-xl animate-pulse" />}>
-            <MatchList />
+            <MatchListWithRegion />
           </Suspense>
         </section>
       </div>

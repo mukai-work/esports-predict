@@ -124,6 +124,79 @@ def build_match_features(matches: list[dict]) -> pd.DataFrame:
     return df
 
 
+def detect_region(event_name: str) -> str:
+    """
+    イベント名からリージョンを判定する。
+
+    Returns: "Americas" | "EMEA" | "Pacific" | "China" | "Other"
+    """
+    e = event_name.upper()
+    if any(k in e for k in ["AMERICAS", "NORTH AMERICA", "NA ", "BRAZIL", "LATIN", "MIBR", "LOUD", "FURIA"]):
+        return "Americas"
+    if any(k in e for k in ["EMEA", "EUROPE", "TURKEY", "SPAIN", "GERMANY", "FRANCE", "BENELUX", "NORDIC", "DACH", "UK ", "BBL", "NAVI", "FNATIC"]):
+        return "EMEA"
+    if any(k in e for k in ["PACIFIC", "APAC", "JAPAN", "KOREA", "SEA", "OCEANIA", "SOUTH ASIA", "VCT 2025: P", "VCT 2026: P"]):
+        return "Pacific"
+    if any(k in e for k in ["CHINA", "CN", "BILIBILI", "EDG", "TYLOO", "JDG", "DRAGONRANGER", "NOVA ESPORTS"]):
+        return "China"
+    return "Other"
+
+
+def build_map_pick_stats(matches: list[dict]) -> pd.DataFrame:
+    """
+    チームごとのマップ別出現率（ピック傾向）を集計する。
+    vlr.gg の試合詳細には「このマップをプレイした」という情報があり、
+    BO3/BO5 で実際にプレイされたマップがわかる。
+
+    Returns
+    -------
+    pd.DataFrame
+        team, map, played, wins, losses, win_rate の集計テーブル
+    """
+    rows = []
+    for m in matches:
+        maps = m.get("maps", [])
+        if not maps:
+            continue
+
+        for mp in maps:
+            map_name = mp.get("map", "").strip()
+            if not map_name or map_name in ("", "TBD"):
+                continue
+
+            try:
+                s1 = int(mp.get("score1", 0))
+                s2 = int(mp.get("score2", 0))
+            except (ValueError, TypeError):
+                continue
+
+            # team1 目線
+            rows.append({
+                "team": m.get("team1", ""),
+                "map": map_name,
+                "win": 1 if s1 > s2 else 0,
+            })
+            # team2 目線
+            rows.append({
+                "team": m.get("team2", ""),
+                "map": map_name,
+                "win": 1 if s2 > s1 else 0,
+            })
+
+    if not rows:
+        return pd.DataFrame()
+
+    df = pd.DataFrame(rows)
+    stats = df.groupby(["team", "map"]).agg(
+        played=("win", "count"),
+        wins=("win", "sum"),
+    ).reset_index()
+    stats["losses"] = stats["played"] - stats["wins"]
+    stats["win_rate"] = (stats["wins"] / stats["played"]).round(3)
+    stats = stats.sort_values(["team", "played"], ascending=[True, False]).reset_index(drop=True)
+    return stats
+
+
 def save_processed(df: pd.DataFrame, name: str):
     """処理済みデータを CSV として保存する"""
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)

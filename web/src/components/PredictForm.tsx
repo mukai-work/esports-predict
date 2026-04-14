@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import MapPrediction from "@/components/MapPrediction";
 
 type PredictResult = {
   team1: string;
@@ -132,6 +133,12 @@ export default function PredictForm() {
               ⚠ {result.note}
             </p>
           )}
+
+          {/* マップ別予想 */}
+          <div className="pt-2 border-t border-gray-800">
+            <p className="text-xs text-gray-500 mb-3">マップ別勝率</p>
+            <MapPrediction team1={result.team1} team2={result.team2} />
+          </div>
 
           <p className="text-xs text-gray-600 text-center">
             ※ AI予想は参考情報です。実際の試合結果を保証するものではありません。

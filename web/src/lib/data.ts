@@ -75,15 +75,26 @@ export async function fetchTeamStats(): Promise<TeamStat[]> {
 
 // ─── 試合結果 ────────────────────────────────────────────────────────────────
 
-export async function fetchRecentMatches(limit = 20): Promise<MatchRecord[]> {
+export function detectRegion(event: string): string {
+  const e = event.toUpperCase();
+  if (/AMERICAS|NORTH AMERICA|\bNA\b|BRAZIL|LATIN/.test(e)) return "Americas";
+  if (/EMEA|EUROPE|TURKEY|SPAIN|GERMANY|FRANCE|BENELUX|NORDIC|DACH|\bUK\b/.test(e)) return "EMEA";
+  if (/PACIFIC|APAC|JAPAN|KOREA|\bSEA\b|OCEANIA|SOUTH ASIA/.test(e)) return "Pacific";
+  if (/CHINA|\bCN\b|BILIBILI/.test(e)) return "China";
+  return "Other";
+}
+
+export async function fetchRecentMatches(limit = 20, region?: string): Promise<MatchRecord[]> {
   if (useSupabase()) {
-    const { data, error } = await getSupabase()
+    let query = getSupabase()
       .from("matches")
       .select("*")
       .order("created_at", { ascending: false })
       .limit(limit);
+    // region フィルタは Python 側で付与されるまでクライアント側でフィルタ
+    const { data, error } = await query;
     if (error) throw error;
-    return (data ?? []).map((r) => ({
+    const records = (data ?? []).map((r) => ({
       match_id: r.match_id,
       team1: r.team1,
       team2: r.team2,
@@ -94,6 +105,9 @@ export async function fetchRecentMatches(limit = 20): Promise<MatchRecord[]> {
       map_count: r.map_count,
       maps: r.maps ?? [],
     }));
+    return region
+      ? records.filter((m) => detectRegion(m.event) === region)
+      : records;
   }
 
   // ローカルファイル（開発時）

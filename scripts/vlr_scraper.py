@@ -248,6 +248,56 @@ def collect_matches(event_slug: str = "vct-2025", max_pages: int = 3) -> list[di
     return all_matches
 
 
+# ─── 試合スケジュール取得 ──────────────────────────────────────────────────
+
+def fetch_upcoming_matches() -> list[dict]:
+    """
+    vlr.gg の /matches から今後の試合（未終了）を取得する。
+    LIVE 中の試合も含む。
+
+    Returns
+    -------
+    list[dict]
+        {match_id, team1, team2, match_time, event, status, url}
+    """
+    url = "https://www.vlr.gg/matches"
+    print(f"[vlr] スケジュール取得: {url}")
+    soup = _get(url, use_cache=False)  # スケジュールはリアルタイムなのでキャッシュなし
+
+    matches = []
+    for item in soup.select("a.match-item"):
+        match_id_match = re.search(r"/(\d+)/", item.get("href", ""))
+        if not match_id_match:
+            continue
+
+        teams = [t.get_text(strip=True) for t in item.select(".match-item-vs-team-name")]
+        event_el = item.select_one(".match-item-event")
+        time_el = item.select_one(".match-item-time")
+        eta_el = item.select_one(".match-item-eta")
+
+        status = "upcoming"
+        if eta_el:
+            eta_text = eta_el.get_text(strip=True).upper()
+            if "LIVE" in eta_text:
+                status = "live"
+            elif "TBD" in eta_text:
+                status = "tbd"
+
+        matches.append({
+            "match_id": match_id_match.group(1),
+            "url": "https://www.vlr.gg" + item.get("href", ""),
+            "team1": teams[0] if len(teams) > 0 else "TBD",
+            "team2": teams[1] if len(teams) > 1 else "TBD",
+            "match_time": time_el.get_text(strip=True) if time_el else "",
+            "event": event_el.get_text(strip=True) if event_el else "",
+            "status": status,
+            "scraped_at": datetime.now().isoformat(),
+        })
+
+    print(f"[vlr] {len(matches)} 試合取得")
+    return matches
+
+
 if __name__ == "__main__":
     # 動作確認: VCT 2025 の試合を1ページ分取得
     print("=== vlr.gg スクレイパー 動作確認 ===")
