@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ScheduleCard from "@/components/ScheduleCard";
+import MatchModal from "@/components/MatchModal";
 import RegionTabs, { Region } from "@/components/RegionTabs";
 import Link from "next/link";
 
@@ -23,6 +24,7 @@ export default function SchedulePage() {
   const [matches, setMatches] = useState<ScheduleMatch[]>([]);
   const [loading, setLoading] = useState(true);
   const [region, setRegion] = useState<Region>("All");
+  const [selectedMatch, setSelectedMatch] = useState<ScheduleMatch | null>(null);
 
   useEffect(() => {
     fetch("/api/schedule")
@@ -33,7 +35,6 @@ export default function SchedulePage() {
 
   const filtered = region === "All" ? matches : matches.filter((m) => m.region === region);
 
-  // リージョン別カウント
   const counts = matches.reduce<Partial<Record<Region, number>>>((acc, m) => {
     const r = m.region as Region;
     acc[r] = (acc[r] ?? 0) + 1;
@@ -61,7 +62,6 @@ export default function SchedulePage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-        {/* リージョンタブ */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
             試合スケジュール & AI 予想
@@ -83,32 +83,35 @@ export default function SchedulePage() {
           </div>
         )}
 
-        {/* LIVE 中 */}
         {liveMatches.length > 0 && (
           <section className="space-y-3">
             <h3 className="text-xs font-bold text-red-400 uppercase tracking-wider">● NOW LIVE</h3>
             {liveMatches.map((m) => (
-              <ScheduleCard key={m.match_id} match={m} />
+              <ScheduleCard key={m.match_id} match={m} onClick={setSelectedMatch} />
             ))}
           </section>
         )}
 
-        {/* Upcoming */}
         {upcomingMatches.length > 0 && (
           <section className="space-y-3">
             {liveMatches.length > 0 && (
               <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">UPCOMING</h3>
             )}
             {upcomingMatches.map((m) => (
-              <ScheduleCard key={m.match_id} match={m} />
+              <ScheduleCard key={m.match_id} match={m} onClick={setSelectedMatch} />
             ))}
           </section>
         )}
 
         <p className="text-xs text-gray-700 text-center">
-          データ提供: vlr.gg ／ 予想は参考情報です
+          カードをタップで選手情報を表示 ／ データ提供: vlr.gg
         </p>
       </div>
+
+      {/* モーダル */}
+      {selectedMatch && (
+        <MatchModal match={selectedMatch} onClose={() => setSelectedMatch(null)} />
+      )}
     </main>
   );
 }
