@@ -3,14 +3,20 @@
 import { useState, useEffect } from "react";
 import MapPrediction from "@/components/MapPrediction";
 
+type MapStat = { map: string; win_rate: number; played: number };
+
 type PredictResult = {
   team1: string;
   team2: string;
   team1_win_prob: number;
   team2_win_prob: number;
   predicted_winner: string;
+  confidence: number;
   team1_stats: { matches: number; wins: number; win_rate: number };
   team2_stats: { matches: number; wins: number; win_rate: number };
+  h2h: { total: number; team1_wins: number; team2_wins: number; team1_rate: number };
+  team1_map_stats: MapStat[];
+  team2_map_stats: MapStat[];
   note?: string | null;
 };
 
@@ -92,10 +98,27 @@ export default function PredictForm() {
       {/* Result */}
       {result && (
         <div className="space-y-4 pt-2 border-t border-gray-800">
-          {/* Predicted winner */}
-          <div className="text-center">
-            <p className="text-xs text-gray-500 mb-1">AI 予想勝者</p>
-            <p className="text-xl font-bold text-red-400">{result.predicted_winner}</p>
+          {/* Predicted winner + confidence */}
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">AI 予想勝者</p>
+              <p className="text-xl font-bold text-red-400">{result.predicted_winner}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-gray-500 mb-1">信頼度</p>
+              <div className="flex items-center gap-1">
+                <div className="w-16 h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${
+                      result.confidence >= 60 ? "bg-green-500" :
+                      result.confidence >= 30 ? "bg-yellow-500" : "bg-gray-500"
+                    }`}
+                    style={{ width: `${result.confidence}%` }}
+                  />
+                </div>
+                <span className="text-xs text-gray-400">{result.confidence}%</span>
+              </div>
+            </div>
           </div>
 
           {/* Probability bars */}
@@ -128,17 +151,35 @@ export default function PredictForm() {
             ))}
           </div>
 
+          {/* Head-to-Head */}
+          {result.h2h.total > 0 && (
+            <div className="bg-gray-800/50 rounded-lg px-4 py-3">
+              <p className="text-xs text-gray-500 mb-2">直接対決（{result.h2h.total}試合）</p>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-300 flex-1 text-right">{result.team1}</span>
+                <div className="flex gap-1">
+                  <span className="text-sm font-bold text-green-400">{result.h2h.team1_wins}</span>
+                  <span className="text-gray-600">-</span>
+                  <span className="text-sm font-bold text-gray-400">{result.h2h.team2_wins}</span>
+                </div>
+                <span className="text-xs text-gray-300 flex-1">{result.team2}</span>
+              </div>
+            </div>
+          )}
+
           {result.note && (
             <p className="text-xs text-yellow-600 bg-yellow-900/20 border border-yellow-800/30 rounded-lg px-3 py-2">
               ⚠ {result.note}
             </p>
           )}
 
-          {/* マップ別予想 */}
-          <div className="pt-2 border-t border-gray-800">
-            <p className="text-xs text-gray-500 mb-3">マップ別勝率</p>
-            <MapPrediction team1={result.team1} team2={result.team2} />
-          </div>
+          {/* マップ別勝率 */}
+          {(result.team1_map_stats.length > 0 || result.team2_map_stats.length > 0) && (
+            <div className="pt-2 border-t border-gray-800">
+              <p className="text-xs text-gray-500 mb-3">マップ別勝率</p>
+              <MapPrediction team1={result.team1} team2={result.team2} />
+            </div>
+          )}
 
           <p className="text-xs text-gray-600 text-center">
             ※ AI予想は参考情報です。実際の試合結果を保証するものではありません。

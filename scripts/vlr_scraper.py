@@ -185,6 +185,44 @@ def fetch_match_detail(match_id: str) -> dict:
     event_el = soup.select_one(".match-header-super a")
     date_el = soup.select_one(".moment-tz-convert")
 
+    # 選手スタッツ（[data-game-id=all] セクションから取得）
+    players: list[dict] = []
+    all_game = soup.select_one("[data-game-id=all]")
+    if all_game:
+        # ヘッダー: R, ACS, K, D, A, +/-(skip), KAST, ADR, HS%, FK, FD, +/-(skip)
+        STAT_COLS = ["rating","acs","kills","deaths","assists",None,"kast","adr","hs_pct","fk","fd",None]
+        for team_idx, table in enumerate(all_game.select("table")[:2]):
+            for row in table.select("tr")[1:]:
+                name_el = row.select_one(".mod-player")
+                agent_img = row.select_one(".mod-agents img")
+                stats_tds = row.select("td.mod-stat")
+
+                if not name_el:
+                    continue
+
+                stat_values: dict[str, str] = {}
+                for i, col in enumerate(STAT_COLS):
+                    if col is None or i >= len(stats_tds):
+                        continue
+                    td = stats_tds[i]
+                    spans = td.select("span")
+                    val = ""
+                    if len(spans) >= 2:
+                        val = spans[1].get_text(strip=True)
+                    elif spans:
+                        raw = spans[0].get_text(strip=True)
+                        num = re.search(r"[\d.]+", raw)
+                        val = num.group() if num else ""
+                    val = re.sub(r"[/%]", "", val).strip()
+                    stat_values[col] = val
+
+                players.append({
+                    "team_idx": team_idx,  # 0=team1, 1=team2
+                    "name": name_el.get_text(strip=True),
+                    "agent": agent_img.get("title", agent_img.get("alt", "")) if agent_img else "",
+                    **stat_values,
+                })
+
     detail = {
         "match_id": match_id,
         "url": url,
@@ -196,6 +234,7 @@ def fetch_match_detail(match_id: str) -> dict:
         "event": event_el.get_text(strip=True) if event_el else "",
         "date": date_el.get("data-utc-ts", "") if date_el else "",
         "maps": maps,
+        "players": players,
         "scraped_at": datetime.now().isoformat(),
     }
 

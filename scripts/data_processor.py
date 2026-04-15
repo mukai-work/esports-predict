@@ -124,6 +124,90 @@ def build_match_features(matches: list[dict]) -> pd.DataFrame:
     return df
 
 
+def build_h2h_stats(matches: list[dict]) -> pd.DataFrame:
+    """
+    チームペアごとの直接対決（head-to-head）勝率を計算する。
+
+    Returns
+    -------
+    pd.DataFrame
+        team1, team2, team1_h2h_wins, team2_h2h_wins, team1_h2h_rate の集計
+    """
+    from collections import defaultdict
+    records: dict[tuple, list] = defaultdict(list)
+
+    for m in matches:
+        t1, t2 = m.get("team1", ""), m.get("team2", "")
+        if not t1 or not t2:
+            continue
+        try:
+            s1, s2 = int(m["score1"]), int(m["score2"])
+        except (ValueError, TypeError):
+            continue
+        key = tuple(sorted([t1, t2]))
+        records[key].append(1 if (key[0] == t1 and s1 > s2) or (key[0] == t2 and s2 > s1) else 0)
+
+    rows = []
+    for (ta, tb), results in records.items():
+        ta_wins = sum(results)
+        tb_wins = len(results) - ta_wins
+        rows.append({
+            "team1": ta,
+            "team2": tb,
+            "matches": len(results),
+            "team1_wins": ta_wins,
+            "team2_wins": tb_wins,
+            "team1_h2h_rate": round(ta_wins / len(results), 3),
+        })
+
+    return pd.DataFrame(rows) if rows else pd.DataFrame()
+
+
+def build_team_avg_stats(matches: list[dict]) -> pd.DataFrame:
+    """
+    試合の選手スタッツからチームごとの平均 ACS・ADR・KD を集計する。
+    players フィールドがある試合のみ対象。
+
+    Returns
+    -------
+    pd.DataFrame
+        team, avg_acs, avg_adr, avg_hs_pct の平均スタッツテーブル
+    """
+    from collections import defaultdict
+    team_stats: dict[str, list] = defaultdict(list)
+
+    for m in matches:
+        players = m.get("players", [])
+        if not players:
+            continue
+        t1, t2 = m.get("team1", ""), m.get("team2", "")
+        for p in players:
+            team = t1 if p.get("team_idx", 0) == 0 else t2
+            try:
+                acs = float(p.get("acs", 0) or 0)
+                adr = float(p.get("adr", 0) or 0)
+                hs = float(p.get("hs_pct", 0) or 0)
+                if acs > 0:
+                    team_stats[team].append({"acs": acs, "adr": adr, "hs": hs})
+            except (ValueError, TypeError):
+                continue
+
+    rows = []
+    for team, stats in team_stats.items():
+        rows.append({
+            "team": team,
+            "avg_acs": round(sum(s["acs"] for s in stats) / len(stats), 1),
+            "avg_adr": round(sum(s["adr"] for s in stats) / len(stats), 1),
+            "avg_hs_pct": round(sum(s["hs"] for s in stats) / len(stats), 1),
+            "player_count": len(stats),
+        })
+
+    df = pd.DataFrame(rows) if rows else pd.DataFrame()
+    if not df.empty:
+        df = df.sort_values("avg_acs", ascending=False).reset_index(drop=True)
+    return df
+
+
 def detect_region(event_name: str) -> str:
     """
     イベント名からリージョンを判定する。

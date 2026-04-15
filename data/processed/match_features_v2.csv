@@ -1,0 +1,250 @@
+match_id,team1,team2,team1_win_rate,team2_win_rate,win_rate_diff,team1_recent_wins,team2_recent_wins,recent_diff,h2h_rate,team1_avg_acs,team2_avg_acs,acs_diff,target
+642893,Leosun Esports,xCrew,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+628556,FENNEL,CREST GAMING Zst,0.5,0.5,0.0,0,0,0,0.5,195.5,197.8,-2.3,0
+644822,Motiv Esports,Sharper Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+642894,Gods Reign,Revenant XSpark,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644828,555,Fancy United Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642151,Mandatory,Misa Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644281,Melser Kindergarten,LEVIATÁN Academy,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642149,UCAM Esports Club,Enterprise Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+639843,2Game Esports,TBK Esports,0.5,0.5,0.0,0,0,0,0.5,166.8,0.0,166.8,1
+639839,ELEVATE,Team Solid,0.5,0.5,0.0,0,0,0,0.5,165.8,232.4,-66.6,0
+628557,Insomnia,REIGNITE FOXX,0.5,0.5,0.0,0,0,0,0.5,197.2,215.6,-18.4,0
+628558,FENNEL,RIDDLE ORDER,0.0,0.5,-0.5,0,0,0,0.5,195.5,195.4,0.1,1
+628559,QT DIG∞,CREST GAMING Zst,0.5,1.0,-0.5,0,1,-1,0.5,214.6,197.8,16.8,0
+642895,Asterisk,The Rad Syndicate,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644829,Motiv Esports,555,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+642896,S8UL Esports,DOT EXE,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642152,UCAM Esports Club,Mandatory,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+639844,ELEVATE,2Game Esports,0.0,1.0,-1.0,0,1,-1,0.5,165.8,166.8,-1.0,0
+644263,LYON,Contra,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+654455,Converse University,KSU Gold,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+628560,REIGNITE FOXX,FENNEL,1.0,0.5,0.5,1,1,0,0.5,215.6,195.5,20.1,1
+628561,QT DIG∞,REIGNITE FOXX,0.0,1.0,-1.0,0,2,-2,0.5,214.6,215.6,-1.0,1
+642897,Gods Reign,Asterisk,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+644823,Sharper Esports,Motiv Esports,1.0,0.5,0.5,1,1,0,1.0,0.0,0.0,0.0,0
+642898,DOT EXE,Leosun Esports,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+642150,Enterprise Esports,Mandatory,1.0,1.0,0.0,1,2,-1,0.5,0.0,0.0,0.0,1
+644279,ShindeN,Melser Kindergarten,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,0
+639840,Team Solid,2Game Esports,1.0,1.0,0.0,1,2,-1,0.5,232.4,166.8,65.6,1
+642899,Revenant XSpark,xCrew,1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,1
+642900,The Rad Syndicate,S8UL Esports,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+628329,Team Liquid Brazil,Gênias do Bem,0.5,0.5,0.0,0,0,0,0.5,204.8,227.9,-23.1,1
+628330,Beta Division GC,malvadinhas 3.0,0.5,0.5,0.0,0,0,0,0.5,201.4,172.6,28.8,0
+647255,Shopify Rebellion Gold,SaD Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+647256,ROSE,Evictix,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+620360,KRÜ BLAZE,Looking For Laburo,0.5,0.5,0.0,0,0,0,0.5,204.2,173.3,30.9,1
+647258,FlyQuest,Division One,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+647257,QoR,Pigeons,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+628331,oi posso fala,Forged to Shine GC,0.5,0.5,0.0,0,0,0,0.5,203.7,165.6,38.1,1
+628332,MIBR GC,PÃO COM RATO,0.5,0.5,0.0,0,0,0,0.5,211.5,196.1,15.4,1
+620384,Akave Esports GC,FUSION X,0.5,0.5,0.0,0,0,0,0.5,179.6,113.9,65.7,1
+642914,Wuxi Titan Esports Club(Titan Esports Club),All Gamers,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+642901,xCrew,DOT EXE,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642902,The Rad Syndicate,Revenant XSpark,0.0,1.0,-1.0,0,2,-2,0.5,0.0,0.0,0.0,0
+642915,Nova Esports,EDward Gaming,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+647259,Evil Geniuses Academy,M80,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+647260,Azure Dragon Gaming,Shopify Rebellion Black,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+620361,Polar Squad Esports GC,Olimpo Gold,0.5,0.5,0.0,0,0,0,0.5,212.3,210.7,1.6,0
+647262,Nightblood Gaming,Alliance Guardians,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+647261,YFP,NRG Academy,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+620385,MYVRA GC,No Sweat Blossom,0.5,0.5,0.0,0,0,0,0.5,168.3,207.1,-38.8,1
+648098,REIGNITE FOXX,AGELITE,0.667,0.5,0.167,2,0,2,0.5,215.6,0.0,215.6,0
+647396,ONSIDE GAMING,DRX Academy,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642916,JD Mall JDG Esports(JDG Esports),FunPlus Phoenix,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642903,S8UL Esports,Asterisk,1.0,1.0,0.0,2,2,0,0.5,0.0,0.0,0.0,1
+648099,Insomnia,REJECT,0.0,0.5,-0.5,0,0,0,0.5,197.2,0.0,197.2,0
+647397,Gen.G Global Academy,ARETE,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642904,Leosun Esports,Gods Reign,1.0,0.0,1.0,2,0,2,0.5,0.0,0.0,0.0,0
+642917,Dragon Ranger Gaming,Xi Lai Gaming,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644709,FNATIC,Eternal Fire,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644710,Team Liquid,Karmine Corp,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+639899,Holy,F4TALITY,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+639900,Paysandu Esports,Remo Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+648100,FENNEL,WEC C,0.333,0.5,-0.167,1,0,1,0.5,195.5,0.0,195.5,1
+647398,Dplus Esports,ONSIDE GAMING,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,0
+642918,Wolves Esports,Trace Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+648101,RIDDLE ORDER,Murash Gaming,0.0,0.5,-0.5,0,0,0,0.5,195.4,0.0,195.4,0
+647399,T1 Academy,Gen.G Global Academy,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,0
+642919,Guangzhou Huadu Bilibili Gaming(Bilibili Gaming),TYLOO,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644711,Team Vitality,GIANTX,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644712,Gentle Mates,FUT Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+639902,F4TALITY,Remo Esports,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+620364,Looking For Laburo,Polar Squad Esports GC,0.0,0.0,0.0,0,0,0,0.5,173.3,212.3,-39.0,1
+639901,Holy,Paysandu Esports,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+620388,FUSION X,No Sweat Blossom,0.0,0.0,0.0,0,0,0,0.5,113.9,207.1,-93.2,0
+644652,Gen.G,Global Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+642920,Dragon Ranger Gaming,Nova Esports,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644653,T1,VARREL,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642921,FunPlus Phoenix,All Gamers,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+644713,Team Heretics,Natus Vincere,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644714,BBL Esports,PCIFIC Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+639903,Paysandu Esports,F4TALITY,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+620362,KRÜ BLAZE,Olimpo Gold,1.0,1.0,0.0,1,1,0,0.5,204.2,210.7,-6.5,0
+620386,Akave Esports GC,MYVRA GC,1.0,1.0,0.0,1,1,0,0.5,179.6,168.3,11.3,1
+644654,Nongshim RedForce,Paper Rex,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+642922,TYLOO,Wuxi Titan Esports Club(Titan Esports Club),1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,1
+644655,FULL SENSE,DetonatioN FocusMe,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642923,Wolves Esports,EDward Gaming,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+649758,Mandatory,Galions,0.667,0.5,0.167,2,0,2,0.5,0.0,0.0,0.0,0
+649792,Misa Esports,Team SCARS,0.0,0.5,-0.5,0,0,0,0.5,0.0,0.0,0.0,1
+649813,AKA HERO,CGN Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+649759,Esprit Shōnen,Caldya Esport,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+650839,Stallions Esports,Axe,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649793,Eternal Fire Passion,Bushido Wildcats,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649814,eSports Cologne,RIZON,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+650845,AlQadsiah Esports,MAYHEM,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649760,WIP Esports,Nuxeria Esport,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+628333,oi posso fala,MIBR GC,1.0,1.0,0.0,1,1,0,0.5,203.7,211.5,-7.8,0
+628334,Gênias do Bem,malvadinhas 3.0,0.0,1.0,-1.0,0,1,-1,0.5,227.9,172.6,55.3,1
+620365,KRÜ BLAZE,Looking For Laburo,0.5,0.5,0.0,1,1,0,1.0,204.2,173.3,30.9,1
+628335,Forged to Shine GC,PÃO COM RATO,0.0,0.0,0.0,0,0,0,0.5,165.6,196.1,-30.5,0
+620389,MYVRA GC,No Sweat Blossom,0.5,0.5,0.0,1,1,0,1.0,168.3,207.1,-38.8,0
+644656,Team Secret,Kiwoom DRX,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+642924,Trace Esports,Xi Lai Gaming,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+644657,Rex Regum Qeon,ZETA DIVISION,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642925,Guangzhou Huadu Bilibili Gaming(Bilibili Gaming),JD Mall JDG Esports(JDG Esports),0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+649761,Esprit Shōnen,Mandatory,0.0,0.5,-0.5,0,2,-2,0.5,0.0,0.0,0.0,0
+649794,Galatasaray Esports,FUT Esports Academy,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+649762,F9 EICAR,Joblife,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649815,Dortmund eSports,Eintracht Frankfurt,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+650488,KPI Gaming,HGE Esport,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+650955,GnG Esports,Vibranium Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649795,REBORN,GHOSTS,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+650486,Falke Esports,Melilla Titans,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+650957,Ghools Esports,Gamax Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+649816,ALTERNATE aTTaX,FOKUS,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+649763,Galions,WIP Esports,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+628338,oi posso fala,PÃO COM RATO,0.5,0.5,0.0,1,1,0,0.5,203.7,196.1,7.6,0
+648102,AGELITE,REJECT,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+648103,FENNEL,Murash Gaming,0.5,1.0,-0.5,2,1,1,0.5,195.5,0.0,195.5,1
+649796,Beşiktaş Esports,Bushido Wildcats,0.5,0.0,0.5,0,0,0,0.5,0.0,0.0,0.0,1
+650490,Barça eSports,Falke Esports,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,1
+650491,NOVO Esports,Otakar Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+649764,Joblife,Caldya Esport,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+649797,Misa Esports,Eternal Fire Passion,0.5,1.0,-0.5,1,1,0,0.5,0.0,0.0,0.0,1
+650492,UCAM Esports Club,KPI Gaming,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+650493,DNSTY,Ramboot Club,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649765,Nuxeria Esport,F9 EICAR,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+620363,Olimpo Gold,KRÜ BLAZE,1.0,0.667,0.333,2,2,0,1.0,210.7,204.2,6.5,0
+648747,Shopify Rebellion Gold,ROSE,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+648748,Evil Geniuses Academy,Division One,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+650874,MIBR GC,Lost Puppies Quackers,1.0,0.5,0.5,2,0,2,0.5,211.5,0.0,211.5,1
+650875,Team Liquid Brazil,Team Gaseous,1.0,0.5,0.5,1,0,1,0.5,204.8,0.0,204.8,1
+648750,Nightblood Gaming,Pigeons,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+650876,Paysandu Esports,MIBR GC,0.333,1.0,-0.667,1,3,-2,0.5,0.0,211.5,-211.5,1
+650877,Remo Esports,Team Liquid Brazil,0.0,1.0,-1.0,0,2,-2,0.5,0.0,204.8,-204.8,0
+648749,Shopify Rebellion Black,QoR,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+648105,REIGNITE FOXX,Insomnia,0.5,0.0,0.5,2,0,2,1.0,215.6,197.2,18.4,0
+642927,FunPlus Phoenix,TYLOO,0.5,1.0,-0.5,1,2,-1,0.5,0.0,0.0,0.0,1
+648106,WEC C,RIDDLE ORDER,0.0,0.0,0.0,0,0,0,0.5,0.0,195.4,-195.4,0
+648482,Team Falcons Vega,TRENTITAS,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642928,Wuxi Titan Esports Club(Titan Esports Club),Guangzhou Huadu Bilibili Gaming(Bilibili Gaming),0.0,0.5,-0.5,0,1,-1,0.5,0.0,0.0,0.0,1
+648483,IVY,Azure GC,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649798,Fire Flux Esports,REBORN,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,0
+650494,Barça eSports,Otakar Esports,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+650501,NOVO Esports,HGE Esport,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+651540,RIZON,CGN Esports,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+651541,AKA HERO,FOKUS,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+649799,GHOSTS,Galatasaray Esports,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+650499,Ramboot Club,Melilla Titans,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+650495,UCAM Esports Club,DNSTY,0.333,1.0,-0.667,1,1,0,0.5,0.0,0.0,0.0,0
+651542,ALTERNATE aTTaX,Eintracht Frankfurt,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+651543,eSports Cologne,Dortmund eSports,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+648751,M80,NRG Academy,1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,1
+648752,SaD Esports,Evictix,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+650880,MIBR GC,Team Gaseous,0.75,0.0,0.75,3,0,3,0.5,211.5,0.0,211.5,0
+620387,Akave Esports GC,No Sweat Blossom,1.0,0.667,0.333,2,2,0,0.5,179.6,207.1,-27.5,1
+648754,FlyQuest,Alliance Guardians,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+648753,Azure Dragon Gaming,YFP,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+650879,Lost Puppies Quackers,Remo Esports,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+648107,Murash Gaming,Insomnia,0.5,0.333,0.167,1,1,0,0.5,0.0,197.2,-197.2,0
+648108,AGELITE,RIDDLE ORDER,0.5,0.333,0.167,1,1,0,0.5,0.0,195.4,-195.4,0
+647402,T1 Academy,DRX Academy,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642929,Xi Lai Gaming,Nova Esports,1.0,0.0,1.0,2,0,2,0.5,0.0,0.0,0.0,1
+651751,Asterisk,S8UL Esports,0.667,1.0,-0.333,2,3,-1,0.0,0.0,0.0,0.0,0
+648104,REJECT,FENNEL,1.0,0.6,0.4,2,3,-1,0.5,0.0,195.5,-195.5,0
+647403,Dplus Esports,ARETE,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+648484,36 Thieves,Team HAQ,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642930,EDward Gaming,Trace Esports,1.0,0.5,0.5,2,1,1,0.5,0.0,0.0,0.0,1
+651752,Revenant XSpark,Gods Reign,1.0,0.333,0.667,3,1,2,1.0,0.0,0.0,0.0,1
+648485,Stallions Lyra,Matilda GC,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644716,PCIFIC Esports,GIANTX,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644717,BBL Esports,Eternal Fire,1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,0
+650878,Paysandu Esports,Team Liquid Brazil,0.5,1.0,-0.5,2,3,-1,0.5,0.0,204.8,-204.8,0
+650881,Remo Esports,Team Gaseous,0.25,0.5,-0.25,1,1,0,0.5,0.0,0.0,0.0,1
+650938,Chivas Esports,Tezcat Gaming,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+650943,AB3 Esports,FUEGO,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+648109,Insomnia,RIDDLE ORDER,0.5,0.5,0.0,2,2,0,0.5,197.2,195.4,1.8,1
+647400,ONSIDE GAMING,Gen.G Global Academy,1.0,1.0,0.0,2,2,0,0.5,0.0,0.0,0.0,1
+642931,JD Mall JDG Esports(JDG Esports),All Gamers,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+651753,S8UL Esports,Revenant XSpark,1.0,1.0,0.0,4,4,0,0.5,0.0,0.0,0.0,1
+648110,REJECT,Insomnia,0.667,0.6,0.067,2,3,-1,1.0,0.0,197.2,-197.2,0
+647404,T1 Academy,Dplus Esports,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+648490,TRENTITAS,Azure GC,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+642932,Dragon Ranger Gaming,Wolves Esports,0.5,0.0,0.5,1,0,1,0.5,0.0,0.0,0.0,1
+648491,Team HAQ,Matilda GC,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644718,FNATIC,Team Vitality,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+644719,Team Liquid,Team Heretics,1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,1
+650920,OXEN,9z Team,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+650882,Paysandu Esports,Remo Esports,0.4,0.4,0.0,2,2,0,1.0,0.0,0.0,0.0,1
+650925,KRÜ SPARK,University War,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+644658,DetonatioN FocusMe,T1,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+642933,Nova Esports,Trace Esports,0.0,0.333,-0.333,0,1,-1,0.5,0.0,0.0,0.0,0
+644659,Nongshim RedForce,Kiwoom DRX,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+642934,FunPlus Phoenix,Guangzhou Huadu Bilibili Gaming(Bilibili Gaming),0.667,0.333,0.333,2,1,1,0.5,0.0,0.0,0.0,0
+644720,FUT Esports,Natus Vincere,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+644721,Gentle Mates,Karmine Corp,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+645474,Sentinels,KRÜ Esports,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+645475,G2 Esports,MIBR,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644660,Team Secret,Global Esports,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,0
+642935,All Gamers,TYLOO,0.667,0.667,0.0,2,2,0,0.5,0.0,0.0,0.0,0
+644661,Rex Regum Qeon,VARREL,1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,1
+642936,EDward Gaming,Dragon Ranger Gaming,1.0,0.667,0.333,3,2,1,0.5,0.0,0.0,0.0,1
+649766,Nuxeria Esport,Mandatory,0.5,0.6,-0.1,1,3,-2,0.5,0.0,0.0,0.0,0
+649801,GHOSTS,Fire Flux Esports,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+651544,Dortmund eSports,CGN Esports,0.5,1.0,-0.5,1,2,-1,0.5,0.0,0.0,0.0,0
+649767,Caldya Esport,F9 EICAR,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+651193,Stallions Esports,Team Spire,1.0,0.5,0.5,1,0,1,0.5,0.0,0.0,0.0,1
+649802,Dark Passage,Beşiktaş Esports,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,0
+651545,AKA HERO,RIZON,0.0,0.5,-0.5,0,1,-1,0.5,0.0,0.0,0.0,0
+649768,Esprit Shōnen,Galions,0.0,0.5,-0.5,0,1,-1,0.5,0.0,0.0,0.0,1
+651194,AlQadsiah Esports,VillianArc,1.0,0.5,0.5,1,0,1,0.5,0.0,0.0,0.0,1
+645476,100 Thieves,Evil Geniuses,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+645477,ENVY,LOUD,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+644662,FULL SENSE,ZETA DIVISION,1.0,0.0,1.0,1,0,1,0.5,0.0,0.0,0.0,1
+642937,JD Mall JDG Esports(JDG Esports),Wuxi Titan Esports Club(Titan Esports Club),0.333,0.333,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+644663,Gen.G,Paper Rex,0.0,1.0,-1.0,0,1,-1,0.5,0.0,0.0,0.0,1
+642938,Xi Lai Gaming,Wolves Esports,1.0,0.0,1.0,3,0,3,0.5,0.0,0.0,0.0,1
+649769,Caldya Esport,Nuxeria Esport,0.333,0.333,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+649803,Bushido Wildcats,Misa Esports,0.0,0.667,-0.667,0,2,-2,0.5,0.0,0.0,0.0,0
+650502,KPI Gaming,Ramboot Club,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+650503,Falke Esports,HGE Esport,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+651546,eSports Cologne,ALTERNATE aTTaX,0.0,0.0,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+649770,Joblife,WIP Esports,0.5,1.0,-0.5,1,2,-1,0.5,0.0,0.0,0.0,0
+651380,BAAM Esports,GnG Esports,0.5,1.0,-0.5,0,1,-1,0.5,0.0,0.0,0.0,1
+649804,REBORN,FUT Esports Academy,1.0,1.0,0.0,2,1,1,0.5,0.0,0.0,0.0,1
+650496,Barça eSports,DNSTY,1.0,1.0,0.0,2,2,0,0.5,0.0,0.0,0.0,0
+651547,Eintracht Frankfurt,FOKUS,1.0,1.0,0.0,2,2,0,0.5,0.0,0.0,0.0,1
+649771,F9 EICAR,Galions,0.667,0.333,0.333,2,1,1,0.5,0.0,0.0,0.0,1
+651381,Gamax Esports,Team RA'AD,1.0,0.5,0.5,1,0,1,0.5,0.0,0.0,0.0,1
+645478,Cloud9,LEVIATÁN,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,0
+645479,FURIA,NRG,0.5,0.5,0.0,0,0,0,0.5,0.0,0.0,0.0,1
+649805,Eternal Fire Passion,Beşiktaş Esports,0.5,1.0,-0.5,1,2,-1,0.5,0.0,0.0,0.0,0
+650504,Otakar Esports,KPI Gaming,0.5,0.667,-0.167,1,2,-1,0.5,0.0,0.0,0.0,1
+649772,WIP Esports,Mandatory,1.0,0.667,0.333,3,3,0,0.5,0.0,0.0,0.0,1
+650505,UCAM Esports Club,Falke Esports,0.25,0.667,-0.417,1,2,-1,0.5,0.0,0.0,0.0,0
+649806,Galatasaray Esports,Fire Flux Esports,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+649773,Esprit Shōnen,Joblife,0.333,0.333,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+628314,Team Liquid Brazil,PÃO COM RATO,1.0,0.667,0.333,4,2,2,0.5,204.8,196.1,8.7,1
+651755,Division One,ROSE,0.0,0.5,-0.5,0,1,-1,0.5,0.0,0.0,0.0,1
+651756,Evil Geniuses Academy,NRG Academy,0.5,0.0,0.5,1,0,1,0.5,0.0,0.0,0.0,1
+628315,Evil Geniuses GC,MIBR GC,0.5,0.6,-0.1,0,3,-3,0.5,225.0,211.5,13.5,0
+650937,LYON,STREAMER ARENA,1.0,0.5,0.5,1,0,1,0.5,0.0,0.0,0.0,1
+651757,Evictix,Pigeons,0.5,0.0,0.5,1,0,1,0.5,0.0,0.0,0.0,0
+651758,Alliance Guardians,QoR,0.5,0.5,0.0,1,1,0,0.5,0.0,0.0,0.0,0
+650942,Contra,LAZER,0.0,0.5,-0.5,0,0,0,0.5,0.0,0.0,0.0,1
+642939,TYLOO,JD Mall JDG Esports(JDG Esports),0.75,0.5,0.25,3,2,1,0.5,0.0,0.0,0.0,0
+648486,Team Falcons Vega,IVY,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,1
+642940,Trace Esports,Dragon Ranger Gaming,0.5,0.5,0.0,2,2,0,0.5,0.0,0.0,0.0,0
+648487,36 Thieves,Stallions Lyra,1.0,1.0,0.0,1,1,0,0.5,0.0,0.0,0.0,0
