@@ -5,6 +5,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
+import { unstable_cache } from "next/cache";
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";
@@ -43,7 +44,11 @@ function getSupabase() {
 
 // ─── チーム統計 ──────────────────────────────────────────────────────────────
 
-export async function fetchTeamStats(): Promise<TeamStat[]> {
+/**
+ * チーム統計を 5分間キャッシュして返す。
+ * Supabase への重複クエリを防ぐ（predict API が呼び出す都度）。
+ */
+async function _fetchTeamStatsRaw(): Promise<TeamStat[]> {
   if (useSupabase()) {
     const { data, error } = await getSupabase()
       .from("team_stats")
@@ -73,6 +78,12 @@ export async function fetchTeamStats(): Promise<TeamStat[]> {
   }));
 }
 
+export const fetchTeamStats = unstable_cache(
+  _fetchTeamStatsRaw,
+  ["team-stats"],
+  { revalidate: 300 } // 5分キャッシュ
+);
+
 // ─── 試合結果 ────────────────────────────────────────────────────────────────
 
 export function detectRegion(event: string): string {
@@ -84,15 +95,14 @@ export function detectRegion(event: string): string {
   return "Other";
 }
 
-export async function fetchRecentMatches(limit = 20, region?: string): Promise<MatchRecord[]> {
+async function _fetchRecentMatchesRaw(limit: number, region?: string): Promise<MatchRecord[]> {
   if (useSupabase()) {
-    let query = getSupabase()
+    // match_id 降順 = vlr.gg の試合ID が大きいほど新しい試合
+    const { data, error } = await getSupabase()
       .from("matches")
-      .select("*")
-      .order("created_at", { ascending: false })
+      .select("match_id, team1, team2, score1, score2, winner, event, map_count, maps")
+      .order("match_id", { ascending: false })
       .limit(limit);
-    // region フィルタは Python 側で付与されるまでクライアント側でフィルタ
-    const { data, error } = await query;
     if (error) throw error;
     const records = (data ?? []).map((r) => ({
       match_id: r.match_id,
@@ -136,4 +146,17 @@ export async function fetchRecentMatches(limit = 20, region?: string): Promise<M
       })),
     };
   });
+}
+
+/**
+ * 直近 N 試合を取得 (2分間キャッシュ)。
+ * limit=500 のような重いクエリをキャッシュして predict API の負荷を軽減する。
+ */
+export async function fetchRecentMatches(limit = 20, region?: string): Promise<MatchRecord[]> {
+  const cached = unstable_cache(
+    () => _fetchRecentMatchesRaw(limit, region),
+    [`recent-matches-${limit}-${region ?? "all"}`],
+    { revalidate: 120 } // 2分キャッシュ
+  );
+  return cached();
 }

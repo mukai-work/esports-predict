@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Link from "next/link";
 
@@ -36,6 +36,7 @@ type TeamDetail = {
 
 export default function TeamPage() {
   const { name } = useParams<{ name: string }>();
+  const router = useRouter();
   const decoded = decodeURIComponent(name);
   const [detail, setDetail] = useState<TeamDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -53,6 +54,15 @@ export default function TeamPage() {
   // フォームバッジ（直近5試合）
   const form = detail?.recent_matches.slice(0, 5).map((m) => m.won ? "W" : "L") ?? [];
 
+  // 最も対戦した相手（クイック予想用）
+  const topOpponent = detail?.recent_matches[0]?.opponent ?? null;
+
+  function goToCompare(opponent?: string) {
+    const params = new URLSearchParams({ team1: decoded });
+    if (opponent) params.set("team2", opponent);
+    router.push(`/compare?${params.toString()}`);
+  }
+
   return (
     <main className="min-h-screen bg-gray-950 text-white">
       <Header />
@@ -67,38 +77,59 @@ export default function TeamPage() {
         <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
 
           {/* チームヘッダー */}
-          <section className="flex items-start justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-black text-white leading-none">{detail.team}</h2>
-              <p className="text-sm text-gray-500 mt-1">{detail.total_matches} 試合データ</p>
+          <section className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-black text-white leading-none">{detail.team}</h2>
+                <p className="text-sm text-gray-500 mt-1">{detail.total_matches} 試合データ</p>
 
-              {/* フォーム（直近5試合） */}
-              {form.length > 0 && (
-                <div className="flex items-center gap-1 mt-3">
-                  <span className="text-xs text-gray-500 mr-1">直近</span>
-                  {form.map((r, i) => (
-                    <span
-                      key={i}
-                      className={`text-xs font-bold w-6 h-6 rounded flex items-center justify-center ${
-                        r === "W" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
-                      }`}
-                    >
-                      {r}
-                    </span>
-                  ))}
-                </div>
+                {/* フォーム（直近5試合） */}
+                {form.length > 0 && (
+                  <div className="flex items-center gap-1 mt-3">
+                    <span className="text-xs text-gray-500 mr-1">直近</span>
+                    {form.map((r, i) => (
+                      <span
+                        key={i}
+                        className={`text-xs font-bold w-6 h-6 rounded flex items-center justify-center ${
+                          r === "W" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
+                        }`}
+                      >
+                        {r}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {detail.vlr_url && (
+                <a
+                  href={detail.vlr_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors shrink-0"
+                >
+                  vlr.gg →
+                </a>
               )}
             </div>
-            {detail.vlr_url && (
-              <a
-                href={detail.vlr_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors shrink-0"
+
+            {/* アクションボタン */}
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => goToCompare()}
+                className="flex items-center gap-1.5 text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-2 rounded-lg transition-colors font-semibold"
               >
-                vlr.gg →
-              </a>
-            )}
+                ⚡ このチームで比較予想
+              </button>
+              {detail.recent_matches.slice(0, 5).map((m) => m.opponent).filter(Boolean).slice(0, 3).map((opp) => (
+                <button
+                  key={opp}
+                  onClick={() => goToCompare(opp)}
+                  className="flex items-center gap-1 text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-2 rounded-lg transition-colors border border-gray-700"
+                >
+                  vs {opp}
+                </button>
+              ))}
+            </div>
           </section>
 
           {/* 選手スタッツ */}

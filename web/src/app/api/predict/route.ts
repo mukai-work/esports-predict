@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchTeamStats, fetchRecentMatches, detectRegion, TeamStat } from "@/lib/data";
+import { fetchTeamStats, fetchRecentMatches, TeamStat } from "@/lib/data";
 
 type MatchRecord = Awaited<ReturnType<typeof fetchRecentMatches>>[number];
 
@@ -26,7 +26,6 @@ function computeH2H(
       (m.team1.toLowerCase().includes(team1.toLowerCase()) || m.team2.toLowerCase().includes(team1.toLowerCase())) &&
       (m.team1.toLowerCase().includes(team2.toLowerCase()) || m.team2.toLowerCase().includes(team2.toLowerCase()))
   );
-
   if (relevant.length === 0) return { rate: 0.5, total: 0 };
 
   const t1wins = relevant.filter((m) => {
@@ -35,6 +34,33 @@ function computeH2H(
   }).length;
 
   return { rate: t1wins / relevant.length, total: relevant.length };
+}
+
+/**
+ * 直近 N 試合の勝率を計算する（フォーム）。
+ * Supabase から降順で取得済みの matches を使う。
+ */
+function computeRecentForm(
+  team: string,
+  matches: MatchRecord[],
+  limit = 5
+): { rate: number; wins: number; total: number } {
+  const teamMatches = matches
+    .filter(
+      (m) =>
+        m.team1.toLowerCase().includes(team.toLowerCase()) ||
+        m.team2.toLowerCase().includes(team.toLowerCase())
+    )
+    .slice(0, limit);
+
+  if (teamMatches.length === 0) return { rate: 0.5, wins: 0, total: 0 };
+
+  const wins = teamMatches.filter((m) => {
+    const isTeam1 = m.team1.toLowerCase().includes(team.toLowerCase());
+    return isTeam1 ? m.winner === m.team1 : m.winner === m.team2;
+  }).length;
+
+  return { rate: wins / teamMatches.length, wins, total: teamMatches.length };
 }
 
 function computeMapStats(
@@ -69,6 +95,30 @@ function computeMapStats(
     .slice(0, 6);
 }
 
+/**
+ * 複合確率計算
+ * - h2h >= 4: 45% h2h + 27.5% 通算勝率 + 27.5% 直近フォーム
+ * - h2h >= 2: 35% h2h + 32.5% 通算勝率 + 32.5% 直近フォーム
+ * - h2h == 1: 20% h2h + 40% 通算勝率 + 40% 直近フォーム
+ * - h2h == 0: 45% 通算勝率 + 55% 直近フォーム
+ */
+function calcCombinedProb(
+  overallProb: number,
+  formProb: number,
+  h2hRate: number,
+  h2hTotal: number
+): number {
+  if (h2hTotal >= 4) {
+    return 0.45 * h2hRate + 0.275 * overallProb + 0.275 * formProb;
+  } else if (h2hTotal >= 2) {
+    return 0.35 * h2hRate + 0.325 * overallProb + 0.325 * formProb;
+  } else if (h2hTotal === 1) {
+    return 0.20 * h2hRate + 0.40 * overallProb + 0.40 * formProb;
+  } else {
+    return 0.45 * overallProb + 0.55 * formProb;
+  }
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const team1 = searchParams.get("team1");
@@ -93,34 +143,33 @@ export async function GET(request: Request) {
   // head-to-head
   const h2h = computeH2H(team1, team2, allMatches);
 
-  // 勝率計算: h2h があれば重み付き、なければシグモイド
-  let team1_win_prob: number;
-  if (h2h.total >= 2) {
-    // h2h データが2試合以上: 60% h2h + 40% 通算勝率
-    const sigmoid_prob = 1 / (1 + Math.exp(-(s1.win_rate - s2.win_rate) * 5));
-    team1_win_prob = 0.6 * h2h.rate + 0.4 * sigmoid_prob;
-  } else if (h2h.total === 1) {
-    // h2h 1試合: 30% h2h + 70% 通算勝率
-    const sigmoid_prob = 1 / (1 + Math.exp(-(s1.win_rate - s2.win_rate) * 5));
-    team1_win_prob = 0.3 * h2h.rate + 0.7 * sigmoid_prob;
-  } else {
-    team1_win_prob = 1 / (1 + Math.exp(-(s1.win_rate - s2.win_rate) * 5));
-  }
-  team1_win_prob = parseFloat(team1_win_prob.toFixed(3));
+  // 直近フォーム（直近5試合）
+  const form1 = computeRecentForm(team1, allMatches, 5);
+  const form2 = computeRecentForm(team2, allMatches, 5);
+
+  // 通算勝率をシグモイドで確率変換
+  const overallSigmoid = 1 / (1 + Math.exp(-(s1.win_rate - s2.win_rate) * 5));
+
+  // フォームをシグモイドで確率変換（感度高め）
+  const formSigmoid = 1 / (1 + Math.exp(-(form1.rate - form2.rate) * 8));
+
+  // 複合確率
+  const team1_win_prob = parseFloat(
+    calcCombinedProb(overallSigmoid, formSigmoid, h2h.rate, h2h.total).toFixed(3)
+  );
 
   // マップ別勝率
   const t1MapStats = computeMapStats(team1, allMatches);
   const t2MapStats = computeMapStats(team2, allMatches);
 
-  // 信頼度スコア（0〜100: データが多いほど高い）
-  const confidence = Math.min(
-    100,
-    Math.round(
-      (Math.min(s1.matches, 10) / 10) * 40 +   // team1 試合数 (max 40pt)
-      (Math.min(s2.matches, 10) / 10) * 40 +   // team2 試合数 (max 40pt)
-      (Math.min(h2h.total, 3) / 3) * 20         // h2h 試合数 (max 20pt)
-    )
-  );
+  // 信頼度スコア（データが多く・h2h があるほど高い）
+  const dataScore =
+    (Math.min(s1.matches, 15) / 15) * 30 +   // team1 試合数 (max 30pt)
+    (Math.min(s2.matches, 15) / 15) * 30 +   // team2 試合数 (max 30pt)
+    (Math.min(h2h.total, 5) / 5) * 20 +       // h2h 試合数 (max 20pt)
+    (Math.min(form1.total, 5) / 5) * 10 +     // team1 フォームデータ (max 10pt)
+    (Math.min(form2.total, 5) / 5) * 10;      // team2 フォームデータ (max 10pt)
+  const confidence = Math.min(100, Math.round(dataScore));
 
   return NextResponse.json({
     team1,
@@ -131,6 +180,8 @@ export async function GET(request: Request) {
     confidence,
     team1_stats: s1,
     team2_stats: s2,
+    team1_recent_form: form1,
+    team2_recent_form: form2,
     h2h: {
       total: h2h.total,
       team1_wins: Math.round(h2h.rate * h2h.total),
