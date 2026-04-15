@@ -16,9 +16,8 @@ export default function Home() {
           </div>
           <nav className="ml-auto flex items-center gap-4 text-sm">
             <Link href="/" className="text-white font-semibold border-b border-red-500">ホーム</Link>
-            <Link href="/schedule" className="text-gray-400 hover:text-white transition-colors">
-              スケジュール
-            </Link>
+            <Link href="/schedule" className="text-gray-400 hover:text-white transition-colors">スケジュール</Link>
+            <Link href="/results" className="text-gray-400 hover:text-white transition-colors">結果</Link>
             <span className="text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-1 rounded-full">
               BETA
             </span>
