@@ -25,8 +25,8 @@ function formatJST(offsetDays: number): { dateStr: string; dayLabel: string; dat
 }
 
 export default function DateCalendar({ selected, onChange, matchCounts = {}, daysBack = 7 }: Props) {
+  // 左: 古い日 → 右: 今日
   const days = Array.from({ length: daysBack + 1 }, (_, i) => formatJST(i - daysBack));
-  days.reverse(); // 古い日 → 新しい日
 
   return (
     <div className="flex gap-2 overflow-x-auto pb-1">
