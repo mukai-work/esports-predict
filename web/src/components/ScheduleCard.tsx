@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type ScheduleMatch = {
   match_id: string;
   team1: string;
@@ -77,9 +79,13 @@ export default function ScheduleCard({ match: m, onClick }: Props) {
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
         {/* Team 1 */}
         <div className="text-right">
-          <p className={`font-semibold text-sm leading-tight ${m.predicted_winner === m.team1 ? "text-white" : "text-gray-400"}`}>
+          <Link
+            href={`/team/${encodeURIComponent(m.team1)}`}
+            onClick={(e) => e.stopPropagation()}
+            className={`font-semibold text-sm leading-tight hover:underline ${m.predicted_winner === m.team1 ? "text-white" : "text-gray-400"}`}
+          >
             {m.team1}
-          </p>
+          </Link>
           <p className="text-xs text-gray-500 mt-0.5 tabular-nums">{(m.team1_win_prob * 100).toFixed(0)}%</p>
         </div>
 
@@ -97,9 +103,13 @@ export default function ScheduleCard({ match: m, onClick }: Props) {
 
         {/* Team 2 */}
         <div>
-          <p className={`font-semibold text-sm leading-tight ${m.predicted_winner === m.team2 ? "text-white" : "text-gray-400"}`}>
+          <Link
+            href={`/team/${encodeURIComponent(m.team2)}`}
+            onClick={(e) => e.stopPropagation()}
+            className={`font-semibold text-sm leading-tight hover:underline ${m.predicted_winner === m.team2 ? "text-white" : "text-gray-400"}`}
+          >
             {m.team2}
-          </p>
+          </Link>
           <p className="text-xs text-gray-500 mt-0.5 tabular-nums">{(m.team2_win_prob * 100).toFixed(0)}%</p>
         </div>
       </div>

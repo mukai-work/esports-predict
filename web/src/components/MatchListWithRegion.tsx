@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import RegionTabs, { Region } from "@/components/RegionTabs";
 
 type MapResult = { map: string; score1: string; score2: string };
@@ -70,8 +71,10 @@ export default function MatchListWithRegion() {
             className="rounded-xl bg-gray-900 border border-gray-800 px-5 py-4"
           >
             <div className="flex items-center justify-between gap-4">
-              <div className={`flex-1 text-right ${m.winner === m.team1 ? "text-white font-semibold" : "text-gray-400"}`}>
-                {m.team1}
+              <div className="flex-1 text-right">
+                <Link href={`/team/${encodeURIComponent(m.team1)}`} className={`font-semibold hover:underline ${m.winner === m.team1 ? "text-white" : "text-gray-400"}`}>
+                  {m.team1}
+                </Link>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <span className={`text-xl font-bold tabular-nums ${m.winner === m.team1 ? "text-green-400" : "text-gray-400"}`}>
@@ -82,8 +85,10 @@ export default function MatchListWithRegion() {
                   {m.score2}
                 </span>
               </div>
-              <div className={`flex-1 ${m.winner === m.team2 ? "text-white font-semibold" : "text-gray-400"}`}>
-                {m.team2}
+              <div className="flex-1">
+                <Link href={`/team/${encodeURIComponent(m.team2)}`} className={`font-semibold hover:underline ${m.winner === m.team2 ? "text-white" : "text-gray-400"}`}>
+                  {m.team2}
+                </Link>
               </div>
             </div>
 

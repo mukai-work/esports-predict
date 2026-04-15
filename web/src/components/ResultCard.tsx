@@ -37,7 +37,7 @@ export default function ResultCard({ match: m }: Props) {
       : null;
 
   return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden">
+    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden hover:border-gray-600 transition-colors">
       {/* 時刻 + イベント */}
       <div className="px-4 pt-3 pb-1 flex items-center justify-between">
         <span className="text-xs text-gray-600 truncate flex-1">{m.event}</span>
@@ -59,9 +59,9 @@ export default function ResultCard({ match: m }: Props) {
           </p>
         </div>
 
-        {/* スコア中央 */}
+        {/* スコア中央 → 試合詳細リンク */}
         <div className="flex flex-col items-center gap-1 min-w-[80px]">
-          <div className="flex items-center gap-2">
+          <Link href={`/match/${m.match_id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <span className={`text-2xl font-black tabular-nums ${team1Won ? "text-white" : "text-gray-500"}`}>
               {m.score1}
             </span>
@@ -69,7 +69,7 @@ export default function ResultCard({ match: m }: Props) {
             <span className={`text-2xl font-black tabular-nums ${team2Won ? "text-white" : "text-gray-500"}`}>
               {m.score2}
             </span>
-          </div>
+          </Link>
           {/* 予想結果マーク */}
           {predResult && (
             <div className={`flex items-center gap-1 text-xs font-semibold ${predResult.cls}`}>
