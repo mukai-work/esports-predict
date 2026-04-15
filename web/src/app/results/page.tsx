@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import Link from "next/link";
+import Header from "@/components/Header";
 import DateCalendar from "@/components/DateCalendar";
 import ResultCard from "@/components/ResultCard";
 import RegionTabs, { Region } from "@/components/RegionTabs";
@@ -117,21 +117,7 @@ export default function ResultsPage() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
-      {/* Header */}
-      <header className="border-b border-gray-800 bg-gray-900">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center font-bold text-sm">V</div>
-          <div>
-            <h1 className="text-lg font-bold leading-none">Valorant AI Predictor</h1>
-            <p className="text-xs text-gray-400">VCT プロ試合 AI 勝敗予想</p>
-          </div>
-          <nav className="ml-auto flex gap-4 text-sm">
-            <Link href="/" className="text-gray-400 hover:text-white transition-colors">ホーム</Link>
-            <Link href="/schedule" className="text-gray-400 hover:text-white transition-colors">スケジュール</Link>
-            <Link href="/results" className="text-white font-semibold border-b border-red-500">結果</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
 

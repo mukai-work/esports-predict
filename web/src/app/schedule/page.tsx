@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ScheduleCard from "@/components/ScheduleCard";
 import MatchModal from "@/components/MatchModal";
 import RegionTabs, { Region } from "@/components/RegionTabs";
-import Link from "next/link";
+import Header from "@/components/Header";
 
 type ScheduleMatch = {
   match_id: string;
@@ -47,19 +47,7 @@ export default function SchedulePage() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
-      <header className="border-b border-gray-800 bg-gray-900">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center font-bold text-sm">V</div>
-          <div>
-            <h1 className="text-lg font-bold leading-none">Valorant AI Predictor</h1>
-            <p className="text-xs text-gray-400">VCT プロ試合 AI 勝敗予想</p>
-          </div>
-          <nav className="ml-auto flex gap-4 text-sm">
-            <Link href="/" className="text-gray-400 hover:text-white transition-colors">ホーム</Link>
-            <Link href="/schedule" className="text-white font-semibold border-b border-red-500">スケジュール</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
