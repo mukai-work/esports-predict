@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import DateCalendar from "@/components/DateCalendar";
 import ResultCard from "@/components/ResultCard";
 import RegionTabs, { Region } from "@/components/RegionTabs";
+import AccuracyTrend from "@/components/AccuracyTrend";
 
 type MapResult = { map: string; score1: string; score2: string };
 
@@ -120,6 +121,9 @@ export default function ResultsPage() {
       <Header />
 
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
+
+        {/* 週次精度トレンド */}
+        <AccuracyTrend />
 
         {/* カレンダー */}
         <section>

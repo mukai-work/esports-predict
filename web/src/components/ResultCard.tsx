@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type MapResult = { map: string; score1: string; score2: string };
 
 type MatchResult = {
@@ -46,9 +48,12 @@ export default function ResultCard({ match: m }: Props) {
       <div className="px-4 py-3 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
         {/* Team 1 */}
         <div className={`text-right ${team1Won ? "opacity-100" : "opacity-40"}`}>
-          <p className={`font-bold text-sm leading-tight ${team1Won ? "text-white" : "text-gray-400"}`}>
+          <Link
+            href={`/team/${encodeURIComponent(m.team1)}`}
+            className={`font-bold text-sm leading-tight hover:underline ${team1Won ? "text-white" : "text-gray-400"}`}
+          >
             {m.team1}
-          </p>
+          </Link>
           <p className="text-xs text-gray-500 mt-0.5">
             予想 {(m.team1_win_prob * 100).toFixed(0)}%
           </p>
@@ -76,9 +81,12 @@ export default function ResultCard({ match: m }: Props) {
 
         {/* Team 2 */}
         <div className={`${team2Won ? "opacity-100" : "opacity-40"}`}>
-          <p className={`font-bold text-sm leading-tight ${team2Won ? "text-white" : "text-gray-400"}`}>
+          <Link
+            href={`/team/${encodeURIComponent(m.team2)}`}
+            className={`font-bold text-sm leading-tight hover:underline ${team2Won ? "text-white" : "text-gray-400"}`}
+          >
             {m.team2}
-          </p>
+          </Link>
           <p className="text-xs text-gray-500 mt-0.5">
             予想 {(m.team2_win_prob * 100).toFixed(0)}%
           </p>
