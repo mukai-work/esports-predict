@@ -69,6 +69,7 @@ def migrate_matches(supabase: Client):
             "event": m.get("event", ""),
             "map_count": len(m.get("maps", [])),
             "maps": m.get("maps", []),
+            "players": m.get("players", []),
             "scraped_at": m.get("scraped_at"),
         })
 
