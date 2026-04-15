@@ -35,7 +35,19 @@ python scripts/migrate_to_supabase.py  # Supabase に反映
 
 ---
 
-## Phase 3 実装計画（次回着手する内容）
+## Phase 3-4 実装済み（2026-04-15 完了）
+
+| 機能 | 状態 |
+|---|---|
+| スケジュールページ（/schedule） | ✅ LIVE/UPCOMING + AI予想 |
+| リージョン別フィルタ | ✅ Americas/EMEA/Pacific/China |
+| マップ予想（/api/map-predict） | ✅ チーム別マップ勝率 |
+| 予想ファクター強化 | ✅ h2h・ACS・信頼度スコア |
+| 選手スタッツ取得 | ✅ ACS/ADR/HS% (30試合分) |
+
+---
+
+## 次の改善ポイント
 
 ### 1. 試合スケジュールページ 【最優先】
 
