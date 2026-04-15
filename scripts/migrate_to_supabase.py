@@ -59,6 +59,10 @@ def migrate_matches(supabase: Client):
         with open(f, encoding="utf-8") as fp:
             m = json.load(fp)
 
+        # date フィールド: "2026-04-09 05:45:00" 形式 → ISO 8601 に変換
+        raw_date = m.get("date", "")
+        match_date = raw_date.replace(" ", "T") + "+00:00" if raw_date else None
+
         records.append({
             "match_id": m.get("match_id", ""),
             "team1": m.get("team1", ""),
@@ -70,6 +74,9 @@ def migrate_matches(supabase: Client):
             "map_count": len(m.get("maps", [])),
             "maps": m.get("maps", []),
             "players": m.get("players", []),
+            "team1_url": m.get("team1_url", ""),
+            "team2_url": m.get("team2_url", ""),
+            "match_date": match_date,
             "scraped_at": m.get("scraped_at"),
         })
 

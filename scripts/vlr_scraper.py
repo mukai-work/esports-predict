@@ -127,13 +127,21 @@ def fetch_match_detail(match_id: str) -> dict:
     print(f"[vlr] 試合詳細取得: match_id={match_id}")
     soup = _get(url)
 
-    # チーム名
-    teams = [t.get_text(strip=True) for t in soup.select(".wf-title-med")]
+    # チーム名 + vlr.gg チームページ URL
+    # .match-header-link は <a href="/team/ID/slug"> で確実にチームリンクを持つ
+    team_link_els = soup.select(".match-header-link")
+    teams = [el.get_text(strip=True) for el in team_link_els[:2]]
+    team_urls = [
+        "https://www.vlr.gg" + el.get("href", "") for el in team_link_els[:2]
+    ]
+    # fallback: wf-title-med
+    if len(teams) < 2:
+        teams = [t.get_text(strip=True) for t in soup.select(".wf-title-med")]
+        team_urls = ["", ""]
 
-    # 全体スコア（.js-spoiler の最初の2要素: "0:2" と "vs."）
+    # 全体スコア（.js-spoiler: "2:1" 形式）
     spoilers = soup.select(".js-spoiler")
     score_raw = spoilers[0].get_text(strip=True) if spoilers else ""
-    # "0:2" 形式を分割
     score_parts = score_raw.split(":") if ":" in score_raw else ["", ""]
     score1 = score_parts[0].strip()
     score2 = score_parts[1].strip() if len(score_parts) > 1 else ""
@@ -230,9 +238,16 @@ def fetch_match_detail(match_id: str) -> dict:
         "team2": teams[1] if len(teams) > 1 else "",
         "score1": score1,
         "score2": score2,
-        "winner": teams[0] if score1 > score2 else teams[1] if score2 > score1 else "draw",
+        # 整数比較で確実に winner を決定
+        "winner": (
+            teams[0] if (int(score1) > int(score2) if score1.isdigit() and score2.isdigit() else score1 > score2)
+            else teams[1] if (int(score2) > int(score1) if score1.isdigit() and score2.isdigit() else score2 > score1)
+            else "draw"
+        ),
         "event": event_el.get_text(strip=True) if event_el else "",
         "date": date_el.get("data-utc-ts", "") if date_el else "",
+        "team1_url": team_urls[0] if len(team_urls) > 0 else "",
+        "team2_url": team_urls[1] if len(team_urls) > 1 else "",
         "maps": maps,
         "players": players,
         "scraped_at": datetime.now().isoformat(),

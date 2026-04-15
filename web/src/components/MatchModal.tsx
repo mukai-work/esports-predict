@@ -27,7 +27,7 @@ type TeamDetail = {
   players: PlayerEntry[];
   recent_matches: RecentMatch[];
   map_stats: MapStat[];
-  liquipedia_url: string;
+  vlr_url: string;
   total_matches: number;
 };
 
@@ -136,18 +136,20 @@ function TeamPanel({ teamName, prob }: { teamName: string; prob: number }) {
             </div>
           )}
 
-          {/* Liquipedia リンク */}
-          <a
-            href={detail.liquipedia_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            Liquipedia で詳細を見る
-          </a>
+          {/* vlr.gg チームページリンク */}
+          {detail.vlr_url && (
+            <a
+              href={detail.vlr_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              vlr.gg でチーム詳細を見る
+            </a>
+          )}
         </div>
       )}
     </div>

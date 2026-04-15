@@ -1,7 +1,7 @@
 /**
  * GET /api/team-detail?team=X
  * チームの選手情報・最近の試合・マップ勝率を返す。
- * Supabase の matches.players JSONB から集計する。
+ * 並び順: match_id DESC（vlr.gg の match_id が大きいほど新しい試合）
  */
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
@@ -22,24 +22,16 @@ type PlayerEntry = {
   matches: number;
 };
 
-function toLiquipediaUrl(teamName: string): string {
-  // スペース→アンダースコア、括弧内は除去
-  const normalized = teamName
-    .replace(/\s*\(.*?\)\s*/g, "")  // (旧チーム名) を除去
-    .trim()
-    .replace(/\s+/g, "_");
-  return `https://liquipedia.net/valorant/${encodeURIComponent(normalized)}`;
-}
-
 async function getFromSupabase(team: string) {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return null;
   const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const { data } = await sb
     .from("matches")
-    .select("match_id, team1, team2, score1, score2, winner, maps, players, event, created_at")
+    .select("match_id, team1, team2, score1, score2, winner, maps, players, event, team1_url, team2_url, match_date")
     .or(`team1.ilike.%${team}%,team2.ilike.%${team}%`)
-    .order("created_at", { ascending: false })
+    // match_id を整数として降順ソート（大きいほど新しい試合）
+    .order("match_id", { ascending: false })
     .limit(30);
 
   return data ?? [];
@@ -47,7 +39,7 @@ async function getFromSupabase(team: string) {
 
 function getFromLocal(team: string) {
   if (!fs.existsSync(DATA_DIR)) return [];
-  return fs
+  const all = fs
     .readdirSync(DATA_DIR)
     .filter((f) => f.endsWith(".json"))
     .map((f) => {
@@ -60,8 +52,13 @@ function getFromLocal(team: string) {
     .filter((m) => m && (
       m.team1?.toLowerCase().includes(team.toLowerCase()) ||
       m.team2?.toLowerCase().includes(team.toLowerCase())
-    ))
-    .slice(0, 30);
+    ));
+
+  // match_id 降順（大きいほど新しい）
+  all.sort((a: { match_id: string }, b: { match_id: string }) =>
+    parseInt(b.match_id) - parseInt(a.match_id)
+  );
+  return all.slice(0, 30);
 }
 
 export async function GET(request: Request) {
@@ -71,7 +68,7 @@ export async function GET(request: Request) {
 
   const matches = (await getFromSupabase(team)) ?? getFromLocal(team);
 
-  // 選手スタッツ集計（team_idx: 0=team1, 1=team2）
+  // 選手スタッツ集計
   const playerMap: Record<string, { acs: number[]; adr: number[]; hs_pct: number[]; rating: number[]; agents: string[] }> = {};
 
   for (const m of matches) {
@@ -99,7 +96,8 @@ export async function GET(request: Request) {
     }
   }
 
-  const avg = (arr: number[]) => arr.length > 0 ? parseFloat((arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1)) : 0;
+  const avg = (arr: number[]) =>
+    arr.length > 0 ? parseFloat((arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1)) : 0;
   const mostUsed = (arr: string[]) => {
     if (!arr.length) return "";
     const freq: Record<string, number> = {};
@@ -120,16 +118,19 @@ export async function GET(request: Request) {
     .filter((p) => p.matches >= 1)
     .sort((a, b) => b.acs - a.acs);
 
-  // 直近5試合
-  const recentMatches = matches.slice(0, 5).map((m) => ({
-    match_id: m.match_id,
-    opponent: m.team1?.toLowerCase().includes(team.toLowerCase()) ? m.team2 : m.team1,
-    score: m.team1?.toLowerCase().includes(team.toLowerCase())
-      ? `${m.score1}–${m.score2}`
-      : `${m.score2}–${m.score1}`,
-    won: m.winner?.toLowerCase().includes(team.toLowerCase()),
-    event: m.event,
-  }));
+  // 直近5試合（match_id 降順で並んでいるのでそのまま slice）
+  const recentMatches = matches.slice(0, 5).map((m) => {
+    const isTeam1 = m.team1?.toLowerCase().includes(team.toLowerCase());
+    return {
+      match_id: m.match_id,
+      opponent: isTeam1 ? m.team2 : m.team1,
+      score: isTeam1
+        ? `${m.score1}–${m.score2}`
+        : `${m.score2}–${m.score1}`,
+      won: m.winner?.toLowerCase().includes(team.toLowerCase()),
+      event: m.event,
+    };
+  });
 
   // マップ勝率
   const mapRecord: Record<string, { wins: number; played: number }> = {};
@@ -154,12 +155,20 @@ export async function GET(request: Request) {
     .sort((a, b) => b.played - a.played)
     .slice(0, 7);
 
+  // vlr.gg チームページ URL: matches から取得
+  let teamVlrUrl = "";
+  for (const m of matches) {
+    const isTeam1 = m.team1?.toLowerCase().includes(team.toLowerCase());
+    const url = isTeam1 ? m.team1_url : m.team2_url;
+    if (url) { teamVlrUrl = url; break; }
+  }
+
   return NextResponse.json({
     team,
     players,
     recent_matches: recentMatches,
     map_stats: mapStats,
-    liquipedia_url: toLiquipediaUrl(team),
+    vlr_url: teamVlrUrl,  // Liquipedia → vlr.gg に変更
     total_matches: matches.length,
   });
 }
