@@ -195,21 +195,24 @@ export default function PredictForm() {
           {/* Probability bars: team1=緑 team2=赤 */}
           <div className="space-y-3">
             {[
-              { team: result.team1, prob: result.team1_win_prob, stats: result.team1_stats, color: "bg-green-500" },
-              { team: result.team2, prob: result.team2_win_prob, stats: result.team2_stats, color: "bg-red-500" },
-            ].map(({ team, prob, stats, color }) => (
+              { team: result.team1, prob: result.team1_win_prob, stats: result.team1_stats, color: "bg-green-500", glow: "shadow-[0_0_10px_rgba(34,197,94,0.5)]" },
+              { team: result.team2, prob: result.team2_win_prob, stats: result.team2_stats, color: "bg-red-500", glow: "shadow-[0_0_10px_rgba(239,68,68,0.5)]" },
+            ].map(({ team, prob, stats, color, glow }) => (
               <div key={team} className="space-y-1">
                 <div className="flex justify-between text-sm">
-                  <span className={team === result.predicted_winner ? "text-white font-semibold" : "text-gray-400"}>
+                  <span className={team === result.predicted_winner ? "text-white font-bold" : "text-gray-400"}>
                     {team}
+                    {team === result.predicted_winner && (
+                      <span className="ml-2 text-xs text-red-400 font-semibold">← 予想</span>
+                    )}
                   </span>
-                  <span className="text-gray-300 tabular-nums font-bold">
+                  <span className={`tabular-nums font-black text-base ${team === result.predicted_winner ? "text-white" : "text-gray-500"}`}>
                     {(prob * 100).toFixed(1)}%
                   </span>
                 </div>
-                <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                <div className="h-2.5 bg-gray-800 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-700 ${color}`}
+                    className={`h-full rounded-full transition-all duration-700 ${color} ${prob > 0.55 ? glow : ""}`}
                     style={{ width: `${prob * 100}%` }}
                   />
                 </div>

@@ -29,15 +29,15 @@ export default function ResultCard({ match: m }: Props) {
 
   const predResult =
     m.is_tossup
-      ? { mark: "–", label: "拮抗", cls: "text-gray-400" }
+      ? { mark: "–", label: "拮抗", cls: "text-gray-400 bg-gray-800 border-gray-700" }
       : m.prediction_correct === true
-      ? { mark: "✅", label: "的中", cls: "text-green-400" }
+      ? { mark: "🎯", label: "的中", cls: "text-green-400 bg-green-500/15 border-green-500/30" }
       : m.prediction_correct === false
-      ? { mark: "❌", label: "外れ", cls: "text-red-400" }
+      ? { mark: "✕", label: "外れ", cls: "text-red-400 bg-red-500/10 border-red-500/20" }
       : null;
 
   return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden hover:border-gray-600 transition-colors">
+    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden hover:border-gray-600 hover:shadow-[0_0_12px_rgba(0,0,0,0.3)] transition-all duration-200">
       {/* 時刻 + イベント */}
       <div className="px-4 pt-3 pb-1 flex items-center justify-between">
         <span className="text-xs text-gray-600 truncate flex-1">{m.event}</span>
@@ -72,7 +72,7 @@ export default function ResultCard({ match: m }: Props) {
           </Link>
           {/* 予想結果マーク */}
           {predResult && (
-            <div className={`flex items-center gap-1 text-xs font-semibold ${predResult.cls}`}>
+            <div className={`flex items-center gap-1 text-xs font-bold border px-2 py-0.5 rounded-full ${predResult.cls}`}>
               <span>{predResult.mark}</span>
               <span>{predResult.label}</span>
             </div>

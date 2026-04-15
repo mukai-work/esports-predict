@@ -65,7 +65,7 @@ export default async function RankingsPage() {
                 <Link
                   key={team.team}
                   href={`/team/${encodeURIComponent(team.team)}`}
-                  className="grid grid-cols-[3rem_1fr_5rem_5rem_5rem_4rem] gap-2 px-4 py-3 border-b border-gray-800/60 hover:bg-gray-800/40 transition-colors items-center group"
+                  className="grid grid-cols-[3rem_1fr_5rem_5rem_5rem_4rem] gap-2 px-4 py-3 border-b border-gray-800/60 hover:bg-gray-800/50 hover:border-l-2 hover:border-l-red-500/50 transition-all duration-150 items-center group"
                 >
                   {/* 順位 */}
                   <span className={`text-center font-bold text-sm tabular-nums ${

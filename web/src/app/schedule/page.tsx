@@ -85,7 +85,7 @@ export default function SchedulePage() {
         {/* タイトル + 更新状態 */}
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+            <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wider border-l-4 border-red-500 pl-3">
               試合スケジュール & AI 予想
             </h2>
             {hasLive && (

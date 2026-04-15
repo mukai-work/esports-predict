@@ -56,7 +56,7 @@ export default function ScheduleCard({ match: m, onClick }: Props) {
     <button
       type="button"
       onClick={() => onClick(m)}
-      className="w-full text-left rounded-xl bg-gray-900 border border-gray-800 px-5 py-4 hover:border-gray-600 hover:bg-gray-900/80 transition-colors cursor-pointer"
+      className="w-full text-left rounded-xl bg-gray-900 border border-gray-800 px-5 py-4 hover:border-red-500/40 hover:bg-gray-800/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.08)] transition-all duration-200 cursor-pointer"
     >
       {/* ヘッダー行 */}
       <div className="flex justify-between items-center mb-3">
@@ -91,12 +91,20 @@ export default function ScheduleCard({ match: m, onClick }: Props) {
 
         {/* 確率バー: 左(team1)=緑 右(team2)=赤 */}
         <div className="flex flex-col items-center gap-1 w-28">
-          <div className="flex w-full h-1.5 rounded-full overflow-hidden">
+          <div className="flex w-full h-2 rounded-full overflow-hidden">
             <div
-              className="bg-green-500 h-full transition-all duration-500"
+              className={`h-full transition-all duration-500 ${
+                m.team1_win_prob > 0.6
+                  ? "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"
+                  : "bg-green-700"
+              }`}
               style={{ width: `${m.team1_win_prob * 100}%` }}
             />
-            <div className="bg-red-500 h-full flex-1" />
+            <div className={`h-full flex-1 ${
+              m.team2_win_prob > 0.6
+                ? "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"
+                : "bg-red-900"
+            }`} />
           </div>
           <span className="text-xs text-gray-600">vs</span>
         </div>
