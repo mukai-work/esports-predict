@@ -64,8 +64,11 @@ export default function ScheduleCard({ match: m, onClick }: Props) {
         </div>
         <div className="flex items-center gap-2">
           <span className={`text-xs ${regionCls}`}>{m.region}</span>
-          {m.match_time && (
-            <span className="text-xs text-gray-600">{m.match_time}</span>
+          {m.match_time && m.status !== "live" && (
+            <span className="text-xs text-gray-400 tabular-nums">
+              {m.match_time}
+              <span className="text-gray-600 ml-0.5">JST</span>
+            </span>
           )}
         </div>
       </div>
