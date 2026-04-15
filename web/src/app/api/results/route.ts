@@ -78,12 +78,15 @@ export async function GET(request: Request) {
 
   const matches = rawMatches.map((m) => {
     const pred = calcWinProb(m.team1, m.team2, teamStats);
-    const correct =
-      m.winner &&
-      ((pred.predicted_winner === m.team1 &&
-        m.winner.toLowerCase().includes(m.team1.toLowerCase())) ||
-        (pred.predicted_winner === m.team2 &&
-          m.winner.toLowerCase().includes(m.team2.toLowerCase())));
+    // 勝率差が ±5% 以内（45〜55%）は「拮抗」扱い → 的中/外れを判定しない
+    const isTossup = Math.abs(pred.team1_win_prob - 0.5) < 0.05;
+    const correct = isTossup
+      ? null
+      : m.winner &&
+        ((pred.predicted_winner === m.team1 &&
+          m.winner.toLowerCase().includes(m.team1.toLowerCase())) ||
+          (pred.predicted_winner === m.team2 &&
+            m.winner.toLowerCase().includes(m.team2.toLowerCase())));
 
     // 試合時刻を JST 文字列に変換
     let match_time_jst = "";
@@ -117,6 +120,7 @@ export async function GET(request: Request) {
       team2_win_prob: pred.team2_win_prob,
       predicted_winner: pred.predicted_winner,
       prediction_correct: correct,
+      is_tossup: isTossup,
     };
   });
 

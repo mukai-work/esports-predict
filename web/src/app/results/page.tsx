@@ -24,6 +24,7 @@ type MatchResult = {
   team2_win_prob: number;
   predicted_winner: string;
   prediction_correct: boolean | null;
+  is_tossup: boolean;
 };
 
 type DayResult = {
@@ -110,8 +111,9 @@ export default function ResultsPage() {
     return acc;
   }, {}) ?? {};
 
+  // 拮抗（is_tossup）は的中率の分母から除外
   const correctInView = filtered.filter((m) => m.prediction_correct === true).length;
-  const finishedInView = filtered.filter((m) => m.prediction_correct !== null).length;
+  const finishedInView = filtered.filter((m) => m.prediction_correct !== null && !m.is_tossup).length;
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">

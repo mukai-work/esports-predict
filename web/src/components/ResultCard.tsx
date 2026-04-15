@@ -16,6 +16,7 @@ type MatchResult = {
   team2_win_prob: number;
   predicted_winner: string;
   prediction_correct: boolean | null;
+  is_tossup: boolean;
 };
 
 type Props = { match: MatchResult };
@@ -24,9 +25,14 @@ export default function ResultCard({ match: m }: Props) {
   const team1Won = m.winner && m.winner.toLowerCase().includes(m.team1.toLowerCase());
   const team2Won = m.winner && m.winner.toLowerCase().includes(m.team2.toLowerCase());
 
-  const predMark =
-    m.prediction_correct === true ? "✅" :
-    m.prediction_correct === false ? "❌" : null;
+  const predResult =
+    m.is_tossup
+      ? { mark: "–", label: "拮抗", cls: "text-gray-400" }
+      : m.prediction_correct === true
+      ? { mark: "✅", label: "的中", cls: "text-green-400" }
+      : m.prediction_correct === false
+      ? { mark: "❌", label: "外れ", cls: "text-red-400" }
+      : null;
 
   return (
     <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden">
@@ -59,13 +65,11 @@ export default function ResultCard({ match: m }: Props) {
               {m.score2}
             </span>
           </div>
-          {/* 予想的中マーク */}
-          {predMark && (
-            <div className="flex items-center gap-1">
-              <span className="text-sm">{predMark}</span>
-              <span className={`text-xs ${m.prediction_correct ? "text-green-400" : "text-red-400"}`}>
-                {m.prediction_correct ? "的中" : "外れ"}
-              </span>
+          {/* 予想結果マーク */}
+          {predResult && (
+            <div className={`flex items-center gap-1 text-xs font-semibold ${predResult.cls}`}>
+              <span>{predResult.mark}</span>
+              <span>{predResult.label}</span>
             </div>
           )}
         </div>
