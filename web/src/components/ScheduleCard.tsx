@@ -83,13 +83,14 @@ export default function ScheduleCard({ match: m, onClick }: Props) {
           <p className="text-xs text-gray-500 mt-0.5 tabular-nums">{(m.team1_win_prob * 100).toFixed(0)}%</p>
         </div>
 
-        {/* 確率バー */}
+        {/* 確率バー: 左(team1)=緑 右(team2)=赤 */}
         <div className="flex flex-col items-center gap-1 w-28">
-          <div className="flex w-full h-1.5 rounded-full overflow-hidden bg-gray-800">
+          <div className="flex w-full h-1.5 rounded-full overflow-hidden">
             <div
-              className="bg-red-500 h-full transition-all duration-500"
+              className="bg-green-500 h-full transition-all duration-500"
               style={{ width: `${m.team1_win_prob * 100}%` }}
             />
+            <div className="bg-red-500 h-full flex-1" />
           </div>
           <span className="text-xs text-gray-600">vs</span>
         </div>

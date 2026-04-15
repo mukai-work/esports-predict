@@ -121,12 +121,12 @@ export default function PredictForm() {
             </div>
           </div>
 
-          {/* Probability bars */}
+          {/* Probability bars: team1=緑 team2=赤 */}
           <div className="space-y-3">
             {[
-              { team: result.team1, prob: result.team1_win_prob, stats: result.team1_stats },
-              { team: result.team2, prob: result.team2_win_prob, stats: result.team2_stats },
-            ].map(({ team, prob, stats }) => (
+              { team: result.team1, prob: result.team1_win_prob, stats: result.team1_stats, color: "bg-green-500" },
+              { team: result.team2, prob: result.team2_win_prob, stats: result.team2_stats, color: "bg-red-500" },
+            ].map(({ team, prob, stats, color }) => (
               <div key={team} className="space-y-1">
                 <div className="flex justify-between text-sm">
                   <span className={team === result.predicted_winner ? "text-white font-semibold" : "text-gray-400"}>
@@ -138,9 +138,7 @@ export default function PredictForm() {
                 </div>
                 <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-700 ${
-                      team === result.predicted_winner ? "bg-red-500" : "bg-gray-600"
-                    }`}
+                    className={`h-full rounded-full transition-all duration-700 ${color}`}
                     style={{ width: `${prob * 100}%` }}
                   />
                 </div>

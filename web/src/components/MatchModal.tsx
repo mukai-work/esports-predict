@@ -209,11 +209,13 @@ export default function MatchModal({ match: m, onClose }: Props) {
             {m.team1}
           </p>
           <div className="flex flex-col items-center gap-1 shrink-0 w-36">
-            <div className="flex w-full h-2 rounded-full overflow-hidden bg-gray-800">
-              <div className="bg-red-500 h-full" style={{ width: `${m.team1_win_prob * 100}%` }} />
+            {/* 左(team1)=緑 右(team2)=赤 */}
+            <div className="flex w-full h-2 rounded-full overflow-hidden">
+              <div className="bg-green-500 h-full" style={{ width: `${m.team1_win_prob * 100}%` }} />
+              <div className="bg-red-500 h-full flex-1" />
             </div>
             <div className="flex gap-3 text-sm font-bold tabular-nums">
-              <span className={m.predicted_winner === m.team1 ? "text-red-400" : "text-gray-500"}>
+              <span className={m.predicted_winner === m.team1 ? "text-green-400" : "text-gray-500"}>
                 {(m.team1_win_prob * 100).toFixed(0)}%
               </span>
               <span className="text-gray-700">vs</span>
